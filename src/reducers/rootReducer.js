@@ -16,10 +16,11 @@ const INITIAL_STATE = {
   discountAmount: 0
 }
 
+
 function rootReducer(state=INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_TO_CART: {
-      const cartCopy = { ...state.cart }
+      const cartCopy = { ...state.cartItems };
       cartCopy[action.id] = (cartCopy[action.id] || 0) + 1;
       return {
         ...state,
@@ -29,8 +30,9 @@ function rootReducer(state=INITIAL_STATE, action) {
           cartCopy,
           state.discountAmount
         )
-      }
+      };
     }
+
     case REMOVE_FROM_CART: {
       const cartCopy = { ...state.cartItems }
       if (!cartCopy[action.id]) return state;
@@ -48,6 +50,25 @@ function rootReducer(state=INITIAL_STATE, action) {
         )
       }
     }
+
+    case APPLY_DISCOUNT: {
+      if (state.discountApplied === false && validDiscounts[action.discount]) {
+        const discountAmount = validDiscounts[action.discount]
+        return {
+          ...state,
+          cartValue: calculateCartTotal(
+            state.products,
+            state.cartItems,
+            discountAmount
+          ),
+          discountApplied: true,
+          discountAmount
+        }
+      }
+      console.log(state.discountAmount)
+      return state
+    }
+
     default: return state
   }
 }

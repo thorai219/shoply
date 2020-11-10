@@ -4,3 +4,11 @@
   object-fit: contain;
   margin: 0 auto;
 }
+
+.CartIcon:hover {
+  cursor: pointer;
+}
+
+.center {
+  margin: 0 auto;
+}

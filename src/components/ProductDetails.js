@@ -6,15 +6,15 @@ import { addToCart } from '../actions/actions'
 
 
 const ProductDetails = () => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const add = () => dispatch(addToCart(id))
-  const { id } = useParams()
   const { image_url, name, price, description } = useSelector(st => ({
     ...st.products[id]
   }))
   return (
     <div className='container'>
-      <div className='card flex-row'>
+      <div className='card flex-row mt-4'>
         <div className='image-container col-md-4 text-center'>
           <img
             className='image'
