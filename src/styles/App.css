@@ -9,6 +9,16 @@
   cursor: pointer;
 }
 
-.center {
+.total {
+  height: 100%;
+}
+
+.custom-nav {
+  height: 10vh;
+  font-size: 19px;
+  justify-content: space-around !important;
+}
+
+.align-center {
   margin: 0 auto;
 }

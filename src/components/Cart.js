@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { applyDiscount } from '../actions/actions'
+import { calculateTotalQuantity } from '../actions/helpers'
 import CartIcons from './CartIcons'
 
 function Cart() {
@@ -14,6 +15,8 @@ function Cart() {
     discountApplied,
     products
   } = useSelector(st => st)
+
+  const itemCount = useSelector(st => calculateTotalQuantity(st.cartItems))
 
   const handleChange = e => {
     setDiscount(e.target.value)
@@ -56,34 +59,41 @@ function Cart() {
   }
 
   return cartItems.length === 0
-    ? (<h2>No items in your cart</h2>)
+    ? (<h2 className='text-center'>No items in your cart</h2>)
     : (
-        <div className='row'>
-          <div className='col-md-8 border'>
-            {renderCartItems()}
+        <div>
+          <h4 className='text-center'>Your cart items</h4>
+          <div className='row'>
+            <div className='col-md-8'>
+              {renderCartItems()}
+            </div>
+
+            <div className='col-md-3 border total p-2 m-2'>
+              <div className='m-1'>
+                <h3>Your Cart Total</h3>
+                <p>
+                  Total: ${cartValue}<br/>
+                  Quantity: {itemCount}<br/>
+                  {discountApplied
+                    ? <span>- You saved {(discountAmount * 100).toFixed(0)}%</span>
+                    : null}
+                </p>
+              </div>
+              <form onSubmit={handleDiscount}>
+                <label htmlFor='promo'>PromoCode:</label>
+                <input
+                  value={discount}
+                  onChange={handleChange}
+                  name='promo'
+                  type='text'
+                />
+                <div className='d-flex justify-content-center m-2'>
+                  <button className='btn btn-outline-success'>Apply PromoCode</button>
+                </div>
+              </form>
+            </div>      
+
           </div>
-
-          <div className='col-md-4'>
-          <h3>Your Cart Total</h3>
-            <p>
-              Total: ${cartValue}<br/>
-              Quantity: {cartItems.length}
-              {discountApplied
-                ? <span>- You saved {(discountAmount * 100).toFixed(0)}%</span>
-                : null}
-            </p>
-            <form onSubmit={handleDiscount}>
-              <p>PromoCode:</p>
-              <input
-                value={discount}
-                onChange={handleChange}
-                name='discount'
-                type='text'
-              />
-              <button className='center btn btn-outline-success m-2'>Apply PromoCode</button>
-            </form>
-          </div>      
-
         </div>
       )
 }

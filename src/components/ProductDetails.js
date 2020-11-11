@@ -14,22 +14,20 @@ const ProductDetails = () => {
   }))
   return (
     <div className='container'>
-      <div className='card flex-row mt-4'>
-        <div className='image-container col-md-4 text-center'>
+      <div className='card col-md-6 align-center'>
+        <div className='d-flex justify-content-end'>
+          <Link to='/' className='btn btn-outline-secondary m-3'>X</Link>
+        </div>
+        <div className='card-body text-center'>
           <img
-            className='image'
+            className='card-top-image image'
             src={image_url}
             alt='product avatar'
           />
-        </div>
-        <div className='align-self-center col-md-8 text-center'>
           <h4>Product Name: {name}</h4>
           <p>Price: ${price}</p>
           <p>{description}</p>
-          <button onClick={add}>Add to Cart</button>
-          <Link to='/' className='btn btn-block btn-link'>
-            Go back
-          </Link>
+          <button className='btn btn-outline-success m-3' onClick={add}>Add to Cart</button>
         </div>
       </div>
     </div>

@@ -10,12 +10,11 @@ const validDiscounts = {
 
 const INITIAL_STATE = {
   products: data.products,
-  cartItems: {},
+  cartItems: [],
   cartValue: 0.0,
   discountApplied: false,
   discountAmount: 0
 }
-
 
 function rootReducer(state=INITIAL_STATE, action) {
   switch (action.type) {

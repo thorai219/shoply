@@ -8,7 +8,6 @@ function App() {
     <main>
       <NavBar />
       <div className='container'>
-        <h2>Shoply</h2>
         <Routes />
       </div>
     </main>
